@@ -29,16 +29,16 @@ const brandsData: SampleSite[] = [
   {
     id: 3,
     title: "Invent",
-    category: "Startup",
+    category: "Digital",
     href: "https://bootstrapmade.com/demo/Invent/",
     thumbnail:
       "https://bootstrapmade.com/content/templatefiles/Invent/Invent-bootstrap-website-template-md.webp",
-    note: "Cocok untuk startup, SaaS, dan layanan digital.",
+    note: "Cocok untuk SaaS, produk digital, dan layanan teknologi.",
   },
   {
     id: 4,
     title: "FlexStart",
-    category: "Startup",
+    category: "Digital",
     href: "https://bootstrapmade.com/demo/FlexStart/",
     thumbnail:
       "https://bootstrapmade.com/content/templatefiles/FlexStart/FlexStart-bootstrap-website-template-md.webp",

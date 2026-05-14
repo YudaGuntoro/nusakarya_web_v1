@@ -14,7 +14,7 @@ const WhatsAppIcon = () => (
 
 const FloatingWhatsApp = () => {
   return (
-    <div className="fixed right-[88px] bottom-8 z-[999] flex max-w-[calc(100vw-7rem)] flex-col items-end gap-3">
+    <div className="fixed right-5 bottom-20 z-[999] flex flex-col items-end gap-3 sm:right-[88px] sm:bottom-8 sm:max-w-[calc(100vw-7rem)]">
       <a
         href={whatsappUrl}
         target="_blank"
@@ -31,16 +31,16 @@ const FloatingWhatsApp = () => {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat WhatsApp Nusakarya Digital Solution"
-        className="group hover:border-primary/40 shadow-primary/10 hover:shadow-primary/15 flex w-[260px] max-w-full items-center gap-3 rounded-xl border border-gray-200/80 bg-white/95 p-3 shadow-xl backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-white/10 dark:bg-[#151B28]/95 dark:shadow-black/30"
+        className="group hover:border-primary/40 shadow-primary/10 hover:shadow-primary/15 flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-white/95 p-0 shadow-xl backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:shadow-2xl sm:h-auto sm:w-[260px] sm:max-w-full sm:justify-start sm:gap-3 sm:rounded-xl sm:border-gray-200/80 sm:p-3 dark:border-white/10 dark:bg-[#151B28]/95 dark:shadow-black/30"
       >
-        <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#22C55E] to-[#0EA55B] text-white shadow-lg ring-1 shadow-[#22C55E]/25 ring-white/30">
+        <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-[#22C55E] to-[#0EA55B] text-white shadow-lg ring-1 shadow-[#22C55E]/25 ring-white/30 sm:h-10 sm:w-10 sm:rounded-xl">
           <WhatsAppIcon />
-          <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-[#EF4444] text-[10px] font-bold text-white shadow-sm dark:border-[#151B28]">
+          <span className="absolute -top-1.5 -right-1.5 hidden h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-[#EF4444] text-[10px] font-bold text-white shadow-sm sm:flex dark:border-[#151B28]">
             1
           </span>
         </span>
 
-        <span className="min-w-0">
+        <span className="hidden min-w-0 sm:block">
           <span className="mb-0.5 block text-[9px] font-bold tracking-[0.16em] text-[#64748B] uppercase dark:text-white/60">
             Nusakarya Digital
           </span>

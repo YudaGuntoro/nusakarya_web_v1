@@ -8,7 +8,7 @@ const categories = [
   "Semua Sample",
   "Company",
   "Landing Page",
-  "Startup",
+  "Digital",
   "App",
   "One Page",
 ];

@@ -51,7 +51,7 @@ const AboutSectionOne = () => {
                 title={
                   <>
                     Kenapa Bisnis Kamu{" "}
-                    <em className="hero-rainbow-text bg-[linear-gradient(90deg,#8B5CF6_0%,#38BDF8_25%,#22C55E_50%,#F59E0B_75%,#EC4899_100%)] bg-clip-text pr-1 italic text-transparent [-webkit-box-decoration-break:clone] [box-decoration-break:clone] dark:bg-[linear-gradient(90deg,#C4B5FD_0%,#7DD3FC_25%,#86EFAC_50%,#FDE68A_75%,#F9A8D4_100%)]">
+                    <em className="hero-rainbow-text bg-[linear-gradient(90deg,#8B5CF6_0%,#38BDF8_25%,#22C55E_50%,#F59E0B_75%,#EC4899_100%)] [box-decoration-break:clone] bg-clip-text pr-1 text-transparent italic [-webkit-box-decoration-break:clone] dark:bg-[linear-gradient(90deg,#C4B5FD_0%,#7DD3FC_25%,#86EFAC_50%,#FDE68A_75%,#F9A8D4_100%)]">
                       Harus Punya Website?
                     </em>
                   </>
@@ -81,11 +81,11 @@ const AboutSectionOne = () => {
             </ScrollReveal>
 
             <ScrollReveal
-              className="w-full px-6 sm:px-8 lg:w-1/2 lg:px-6"
+              className="hidden w-full px-6 sm:px-8 md:block lg:w-1/2 lg:px-6"
               delay={140}
               variant="fade-left"
             >
-              <div className="relative mx-auto my-8 max-w-[610px] lg:mr-4 lg:my-0">
+              <div className="relative mx-auto my-8 max-w-[610px] lg:my-0 lg:mr-4">
                 <div className="absolute -top-6 right-3 h-full w-[90%] rounded-md bg-[#efe8ff] dark:bg-[#241f35]" />
 
                 <div className="relative overflow-hidden rounded-md border border-[#e3d9ff] bg-[#f7f3ff] p-3 shadow-[0_22px_55px_rgba(105,72,170,0.16)] dark:border-white/10 dark:bg-[#1f1a2d] dark:shadow-none">
@@ -100,17 +100,17 @@ const AboutSectionOne = () => {
                   <div className="pointer-events-none absolute inset-3 rounded-sm">
                     <div className="about-bubble-float absolute top-3 left-3 z-20 rounded-md border border-[#e7dcff] bg-white/95 px-3 py-2.5 shadow-[0_14px_35px_rgba(105,72,170,0.16)] backdrop-blur-sm sm:top-4 sm:left-4 sm:px-4 sm:py-3 dark:border-white/10 dark:bg-[#211c32]/95">
                       <div className="text-primary mb-1 flex items-center gap-2 text-sm font-bold">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/10">
+                        <span className="bg-primary/10 flex h-7 w-7 items-center justify-center rounded-md">
                           {checkIcon}
                         </span>
                         Trusted
                       </div>
-                      <p className="text-body-color text-xs font-medium dark:text-body-color-dark">
+                      <p className="text-body-color dark:text-body-color-dark text-xs font-medium">
                         Seller verified
                       </p>
                     </div>
 
-                    <div className="about-bubble-float about-bubble-float-delay absolute top-[42%] right-4 z-20 hidden rounded-md border border-[#fee7b0] bg-white/95 px-4 py-3 shadow-[0_14px_35px_rgba(202,138,4,0.14)] backdrop-blur-sm xs:block dark:border-white/10 dark:bg-[#211c32]/95">
+                    <div className="about-bubble-float about-bubble-float-delay xs:block absolute top-[42%] right-4 z-20 hidden rounded-md border border-[#fee7b0] bg-white/95 px-4 py-3 shadow-[0_14px_35px_rgba(202,138,4,0.14)] backdrop-blur-sm dark:border-white/10 dark:bg-[#211c32]/95">
                       <p className="mb-1 text-xs font-semibold text-[#8a5b00] dark:text-[#facc15]">
                         Rating
                       </p>
@@ -130,7 +130,7 @@ const AboutSectionOne = () => {
                           <p className="text-sm font-bold text-black dark:text-white">
                             Certified
                           </p>
-                          <p className="text-body-color text-xs font-medium dark:text-body-color-dark">
+                          <p className="text-body-color dark:text-body-color-dark text-xs font-medium">
                             Trusted seller
                           </p>
                         </div>
