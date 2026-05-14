@@ -1,0 +1,10 @@
+services:
+  nusakarya-web:
+    image: ${DOCKER_IMAGE:-yudaguntoro/nusakarya_web_v1:latest}
+    container_name: nusakarya-web
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
