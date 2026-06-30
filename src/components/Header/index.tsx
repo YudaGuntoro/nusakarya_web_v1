@@ -7,8 +7,11 @@ import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 
 const Header = () => {
+  const pathname = usePathname();
+
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const navbarToggleHandler = () => {
     setNavbarOpen(!navbarOpen);
   };
@@ -37,7 +40,64 @@ const Header = () => {
     }
   };
 
-  const usePathName = usePathname();
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sectionIds = ["home", "portfolio", "process", "pricing", "contact"];
+
+    const updateActiveSection = () => {
+      const headerOffset = 120;
+      let currentSection = "home";
+
+      sectionIds.forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
+
+        if (section && section.getBoundingClientRect().top <= headerOffset) {
+          currentSection = sectionId;
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("hashchange", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("hashchange", updateActiveSection);
+    };
+  }, [pathname]);
+
+  const sectionByPath: Record<string, string> = {
+    "/": "home",
+    "/#portfolio": "portfolio",
+    "/#process": "process",
+    "/#pricing": "pricing",
+    "/#contact": "contact",
+  };
+
+  const handleNavigation = (path: string) => {
+    const targetSection = sectionByPath[path];
+
+    if (targetSection) {
+      setActiveSection(targetSection);
+    }
+
+    setNavbarOpen(false);
+  };
+
+  const isPathActive = (path: string) => {
+    if (pathname === "/") {
+      return sectionByPath[path] === activeSection;
+    }
+
+    return pathname === path;
+  };
+
+  const isServicesActive =
+    pathname === "/demo" || (pathname === "/" && activeSection === "portfolio");
 
   return (
     <>
@@ -112,9 +172,9 @@ const Header = () => {
                         {menuItem.path ? (
                           <Link
                             href={menuItem.path}
-                            onClick={() => setNavbarOpen(false)}
+                            onClick={() => handleNavigation(menuItem.path)}
                             className={`relative flex py-2.5 text-[16px] font-medium whitespace-nowrap transition duration-300 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:bg-[#8B5CF6] after:transition-transform after:duration-300 lg:items-center lg:py-0 ${
-                              usePathName === menuItem.path
+                              isPathActive(menuItem.path)
                                 ? "text-white after:scale-x-100"
                                 : "text-[#C5C1D2] after:scale-x-0 hover:text-white hover:after:scale-x-100"
                             }`}
@@ -125,7 +185,11 @@ const Header = () => {
                           <>
                             <p
                               onClick={() => handleSubmenu(index)}
-                              className="relative flex cursor-pointer items-center justify-between py-2.5 text-[16px] font-medium whitespace-nowrap text-[#C5C1D2] transition duration-300 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-[#8B5CF6] after:transition-transform after:duration-300 group-hover:after:scale-x-100 hover:text-white lg:py-0"
+                              className={`relative flex cursor-pointer items-center justify-between py-2.5 text-[16px] font-medium whitespace-nowrap transition duration-300 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:bg-[#8B5CF6] after:transition-transform after:duration-300 group-hover:after:scale-x-100 hover:text-white lg:py-0 ${
+                                isServicesActive
+                                  ? "text-white after:scale-x-100"
+                                  : "text-[#C5C1D2] after:scale-x-0"
+                              }`}
                             >
                               {menuItem.title}
                               <span className="pl-1.5">
@@ -148,7 +212,9 @@ const Header = () => {
                                 <Link
                                   href={submenuItem.path}
                                   key={index}
-                                  onClick={() => setNavbarOpen(false)}
+                                  onClick={() =>
+                                    handleNavigation(submenuItem.path)
+                                  }
                                   className="block rounded-sm px-3 py-2.5 text-sm text-[#C5C1D2] transition hover:bg-white/5 hover:text-white"
                                 >
                                   {submenuItem.title}

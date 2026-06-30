@@ -14,8 +14,8 @@ const menuData: Menu[] = [
     submenu: [
       {
         id: 21,
-        title: "Company Profile",
-        path: "/#features",
+        title: "Contoh Website",
+        path: "/#portfolio",
         newTab: false,
       },
       {

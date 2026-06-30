@@ -123,9 +123,10 @@ const WebsitePreview = () => (
 const AboutSectionOne = () => {
   return (
     <section
-      id="about"
+      id="process"
       className="relative overflow-hidden border-b border-[#DED7E5] bg-[#F0ECF4] py-20 sm:py-24 lg:py-28 dark:border-white/[0.07] dark:bg-[#0D1120]"
     >
+      <span id="about" className="absolute top-0" aria-hidden="true" />
       <div
         className="pointer-events-none absolute inset-0 dark:hidden"
         style={{

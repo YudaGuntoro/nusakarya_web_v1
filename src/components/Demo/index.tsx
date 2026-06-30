@@ -24,7 +24,7 @@ const demoProjects: DemoProject[] = [
     client: "Nusakarya Digital Solution",
     category: "Maintenance Operation",
     description:
-      "Demo sistem CMMS untuk pemantauan work order, aset, jadwal preventive maintenance, dan notifikasi risiko operasional.",
+      "Work order, aset, preventive maintenance, dan risiko operasional dalam satu alur kerja.",
     detail:
       "Demo ini memperlihatkan alur pemeliharaan modern mulai dari dashboard real-time, pelacakan siklus hidup aset, integrasi sensor, sampai notifikasi kontraktor agar tim operasional lebih cepat mengambil keputusan.",
     image: "/images/demo/cmms.png",
@@ -33,37 +33,35 @@ const demoProjects: DemoProject[] = [
   },
   {
     id: "production-monitoring",
-    title: "Production Monitoring System",
+    title: "Production Monitoring",
     client: "Nusakarya Digital Solution",
     category: "Industrial Operation",
     description:
-      "Preview sistem industri untuk memantau output produksi, downtime, performa line, dan progres shift secara real-time.",
+      "Pantau output, downtime, performa line, dan progres setiap shift secara real-time.",
     detail:
-      "Materi demo sedang disiapkan. Untuk sementara kartu ini menggunakan logo Nusakarya sebagai placeholder.",
+      "Materi demo Production Monitoring sedang dalam tahap pengembangan.",
     image: "/images/logo/new-logo.png",
     status: "locked",
   },
   {
     id: "warehouse-management",
-    title: "Warehouse Management System",
+    title: "Warehouse Management",
     client: "Nusakarya Digital Solution",
     category: "Inventory Operation",
     description:
-      "Preview sistem industri untuk mengelola stok gudang, lokasi rak, pergerakan barang, dan aktivitas inbound-outbound.",
-    detail:
-      "Materi demo sedang disiapkan. Untuk sementara kartu ini menggunakan logo Nusakarya sebagai placeholder.",
+      "Kelola stok, lokasi rak, perpindahan barang, serta proses inbound dan outbound.",
+    detail: "Materi demo Warehouse Management sedang dalam tahap pengembangan.",
     image: "/images/logo/new-logo.png",
     status: "locked",
   },
   {
     id: "utilities-monitoring",
-    title: "Utilities Monitoring System",
+    title: "Utilities Monitoring",
     client: "Nusakarya Digital Solution",
     category: "Factory Utilities",
     description:
-      "Preview sistem industri untuk memantau listrik, air, compressed air, gas, dan konsumsi energi fasilitas produksi.",
-    detail:
-      "Materi demo sedang disiapkan. Untuk sementara kartu ini menggunakan logo Nusakarya sebagai placeholder.",
+      "Lihat konsumsi listrik, air, compressed air, dan utilitas fasilitas dalam satu layar.",
+    detail: "Materi demo Utilities Monitoring sedang dalam tahap pengembangan.",
     image: "/images/logo/new-logo.png",
     status: "locked",
   },
@@ -117,6 +115,41 @@ const CloseIcon = () => (
   </svg>
 );
 
+const LockedPreview = ({
+  project,
+  number,
+}: {
+  project: DemoProject;
+  number: string;
+}) => (
+  <div className="relative aspect-[16/9] overflow-hidden bg-[#E5DDF2] dark:bg-[#211C36]">
+    <div
+      className="absolute inset-0 opacity-35 dark:opacity-20"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(121,85,191,.22) 1px, transparent 1px), linear-gradient(90deg, rgba(121,85,191,.22) 1px, transparent 1px)",
+        backgroundSize: "34px 34px",
+      }}
+    />
+    <div className="absolute top-[-48%] right-[-18%] h-[125%] w-[68%] rounded-full border-[28px] border-[#8B5CF6]/55 dark:border-[#8B5CF6]/35" />
+    <div className="absolute right-[13%] bottom-[-22%] h-[62%] w-[42%] rotate-12 bg-[#F2C96D]/75 dark:bg-[#D4A94D]/45" />
+
+    <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6">
+      <div className="flex items-center justify-between">
+        <span className="text-[9px] font-bold tracking-[0.16em] text-[#604986] uppercase dark:text-[#BCA5ED]">
+          In development
+        </span>
+        <span className="text-[10px] font-bold text-[#604986] dark:text-[#BCA5ED]">
+          {number}
+        </span>
+      </div>
+      <p className="relative max-w-[250px] text-[24px] leading-[.95] font-black tracking-[-0.05em] text-[#292431] sm:text-[30px] dark:text-white">
+        {project.category}
+      </p>
+    </div>
+  </div>
+);
+
 const Demo = () => {
   const [query, setQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState<DemoProject | null>(
@@ -167,121 +200,164 @@ const Demo = () => {
 
   return (
     <>
-      <section className="relative z-10 min-h-screen overflow-hidden bg-gray-50 pt-28 pb-16 md:pt-36 md:pb-20 lg:pt-[150px] lg:pb-28 dark:bg-[#080B10]">
-        <div className="from-primary/10 dark:from-primary/20 absolute inset-x-0 top-0 h-64 bg-linear-to-b via-white/70 to-transparent dark:via-[#101827]/80" />
-        <div className="from-primary/5 dark:from-primary/10 absolute inset-y-0 left-0 w-1/2 bg-linear-to-r to-transparent" />
+      <main className="relative min-h-screen overflow-hidden border-b border-[#DCD6E2] bg-[#F0EDF3] pt-28 pb-20 md:pt-36 lg:pt-[150px] lg:pb-28 dark:border-white/[0.07] dark:bg-[#0D1120]">
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[34%] bg-[#E8E1EF] lg:block dark:bg-[#171329]" />
+        <div className="pointer-events-none absolute top-[-220px] left-[-180px] h-[520px] w-[520px] rounded-full border border-[#8B5CF6]/15 dark:border-white/[0.04]" />
+        <div className="pointer-events-none absolute right-[5%] bottom-[8%] h-36 w-36 rotate-12 border border-[#8B5CF6]/10 dark:border-white/[0.04]" />
 
-        <div className="relative container">
-          <div className="mb-10 grid gap-7 lg:mb-12 lg:grid-cols-[minmax(0,680px)_minmax(280px,360px)] lg:items-end lg:justify-between">
-            <ScrollReveal className="max-w-[680px]" variant="fade-up" once>
-              <span className="border-primary/30 bg-primary/10 text-primary mb-5 inline-flex rounded-full border px-4 py-2 text-sm font-semibold">
-                Custom Software (Demo)
-              </span>
-              <h1 className="mb-5 max-w-[680px] text-3xl leading-tight font-extrabold tracking-normal text-black sm:text-4xl lg:text-[42px] dark:text-white">
-                Custom Software Demo
-              </h1>
-              <div className="border-primary/30 max-w-[620px] border-l-4 pl-5">
-                <p className="text-dark mb-2 text-lg leading-relaxed font-semibold dark:text-white">
-                  Kumpulan contoh tampilan sistem digital Nusakarya.
-                </p>
-                <p className="text-body-color text-base leading-relaxed dark:text-slate-300">
-                  Selain pembuatan website dan company profile, kami juga
-                  membuat custom software untuk kebutuhan industri, operasional,
-                  dan proses kerja internal.
-                </p>
+        <div className="relative z-10 container px-6 sm:px-8 lg:px-10 xl:px-12">
+          <div className="mb-14 grid gap-9 lg:grid-cols-[1.05fr_.95fr] lg:items-end lg:gap-16">
+            <ScrollReveal variant="fade-right" once>
+              <div className="max-w-[720px]">
+                <div className="mb-7 flex items-center gap-3">
+                  <span className="h-px w-8 bg-[#7955BF]" />
+                  <span className="text-[10px] font-bold tracking-[0.17em] text-[#7651BE] uppercase dark:text-[#BCA5ED]">
+                    Software Lab / 01
+                  </span>
+                </div>
+                <h1 className="mb-6 max-w-[700px] text-[42px] leading-[1.01] font-black tracking-[-0.055em] text-[#292530] sm:text-[54px] lg:text-[64px] dark:text-white">
+                  Bukan cuma dashboard cantik.{" "}
+                  <span className="text-[#7955BF] dark:text-[#BCA5ED]">
+                    Harus kepakai.
+                  </span>
+                </h1>
               </div>
             </ScrollReveal>
 
-            <ScrollReveal delay={120} variant="fade-left" once>
-              <label className="relative block w-full lg:w-full">
-                <span className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-slate-400">
-                  <SearchIcon />
-                </span>
-                <input
-                  type="search"
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Cari demo..."
-                  className="text-dark focus:border-primary/60 h-12 w-full rounded-lg border border-gray-200 bg-white pr-4 pl-12 text-sm font-medium shadow-sm outline-hidden transition duration-300 placeholder:text-gray-400 focus:bg-white dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:placeholder:text-slate-400 dark:focus:bg-white/[0.09]"
-                />
-              </label>
+            <ScrollReveal delay={100} variant="fade-left" once>
+              <div className="border-l-2 border-[#7955BF]/35 pl-5">
+                <p className="mb-3 text-[17px] leading-7 font-bold text-[#3C3741] dark:text-white">
+                  Custom software untuk alur kerja yang benar-benar spesifik.
+                </p>
+                <p className="text-sm leading-7 text-[#716A76] sm:text-[15px] dark:text-[#AAA5B1]">
+                  Dari maintenance sampai warehouse—setiap sistem dimulai dari
+                  masalah operasional, bukan dari template fitur.
+                </p>
+              </div>
             </ScrollReveal>
           </div>
 
+          <ScrollReveal
+            className="mb-8 flex flex-col gap-5 border-y border-[#D5CEDA] py-5 sm:flex-row sm:items-center sm:justify-between dark:border-white/10"
+            delay={120}
+            variant="fade-up"
+            once
+          >
+            <div className="flex items-center gap-4">
+              <span className="text-[10px] font-bold tracking-[0.15em] text-[#8B8490] uppercase">
+                Project index
+              </span>
+              <span className="h-4 w-px bg-[#CDC6D2] dark:bg-white/10" />
+              <span className="text-xs font-semibold text-[#5E5763] dark:text-[#B7B2BD]">
+                {String(filteredProjects.length).padStart(2, "0")} project
+              </span>
+            </div>
+
+            <label className="relative block w-full sm:max-w-[320px]">
+              <span className="pointer-events-none absolute top-1/2 left-0 -translate-y-1/2 text-[#837C88] dark:text-[#918B98]">
+                <SearchIcon />
+              </span>
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Cari sistem..."
+                className="h-11 w-full border-b border-[#BFB7C5] bg-transparent pr-2 pl-8 text-sm font-semibold text-[#332E38] transition outline-none placeholder:text-[#96909B] focus:border-[#7955BF] dark:border-white/20 dark:text-white dark:placeholder:text-[#77727F]"
+              />
+            </label>
+          </ScrollReveal>
+
           {filteredProjects.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-              {filteredProjects.map((project) => {
+            <div className="grid gap-5 lg:grid-cols-12">
+              {filteredProjects.map((project, index) => {
                 const locked = project.status === "locked";
+                const featured = project.id === "cmms-maintenance";
+                const number = String(
+                  demoProjects.findIndex((item) => item.id === project.id) + 1,
+                ).padStart(2, "0");
 
                 return (
                   <ScrollReveal
                     key={project.id}
-                    delay={120 + filteredProjects.indexOf(project) * 80}
-                    duration={760}
+                    className={
+                      featured
+                        ? "h-full lg:col-span-8"
+                        : index === 1
+                          ? "h-full lg:col-span-4"
+                          : "h-full lg:col-span-6"
+                    }
+                    delay={index * 80}
+                    duration={720}
                     variant="fade-up"
                     once
                   >
                     <article
-                      className={`shadow-three group overflow-hidden rounded-lg border bg-white transition duration-300 dark:bg-[#111827] dark:shadow-[0_16px_50px_rgba(0,0,0,0.28)] ${
+                      className={`group flex h-full flex-col overflow-hidden border bg-[#FAF8FB] transition duration-300 dark:bg-[#171A2A] ${
                         locked
-                          ? "border-gray-200 opacity-80 dark:border-white/10"
-                          : "border-primary/20 hover:border-primary/40 dark:border-primary/25 dark:hover:border-primary/40 hover:-translate-y-1"
+                          ? "border-[#D8D1DD] dark:border-white/10"
+                          : "border-[#7955BF]/45 hover:border-[#7955BF] dark:border-[#8B5CF6]/45 dark:hover:border-[#8B5CF6]"
                       }`}
                     >
                       <button
                         type="button"
                         disabled={locked}
                         onClick={() => setSelectedProject(project)}
-                        className="block w-full text-left disabled:cursor-not-allowed"
+                        className="flex h-full w-full flex-col text-left disabled:cursor-default"
                       >
-                        <div
-                          className={`relative aspect-[1264/848] overflow-hidden ${
-                            locked
-                              ? "bg-slate-100 dark:bg-slate-200"
-                              : "bg-slate-100 dark:bg-slate-950"
-                          }`}
-                        >
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            sizes="(min-width: 1200px) 25vw, (min-width: 768px) 50vw, 100vw"
-                            className={`transition duration-500 ${
-                              locked
-                                ? "object-contain p-12 opacity-55 grayscale"
-                                : "object-fill group-hover:scale-105"
-                            }`}
-                          />
-                          {locked && (
-                            <div className="absolute inset-0 flex items-center justify-center bg-slate-200/45">
-                              <span className="text-center text-lg font-bold text-slate-500">
-                                Coming Soon
-                              </span>
+                        {locked ? (
+                          <LockedPreview project={project} number={number} />
+                        ) : (
+                          <div className="relative aspect-[16/8.2] overflow-hidden border-b border-[#D8D1DD] bg-[#151827] dark:border-white/10">
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              fill
+                              priority
+                              sizes="(min-width: 992px) 67vw, 100vw"
+                              className="object-cover object-top transition duration-700 ease-out group-hover:scale-[1.02]"
+                            />
+                            <div className="absolute top-0 left-0 bg-[#19172F] px-4 py-3 text-[10px] font-bold tracking-[0.14em] text-white">
+                              {number}
                             </div>
-                          )}
-                        </div>
+                          </div>
+                        )}
 
-                        <div className="p-5">
-                          <div className="mb-4 flex items-center justify-between gap-3">
-                            <span className="max-w-[75%] truncate rounded-md border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
-                              {project.client}
+                        <div className="flex flex-1 flex-col p-6 sm:p-7">
+                          <div className="mb-5 flex items-center justify-between gap-4">
+                            <span className="text-[9px] font-bold tracking-[0.14em] text-[#7955BF] uppercase dark:text-[#BCA5ED]">
+                              {project.category}
                             </span>
                             <span
-                              className={`shrink-0 ${
+                              className={
                                 locked
-                                  ? "text-slate-400"
-                                  : "group-hover:text-primary text-slate-500 dark:text-slate-300"
-                              }`}
+                                  ? "text-[#9A939E]"
+                                  : "text-[#5E5763] transition group-hover:text-[#7955BF] dark:text-[#B7B2BD]"
+                              }
                             >
                               {locked ? <LockIcon /> : <ArrowIcon />}
                             </span>
                           </div>
-                          <h2 className="mb-3 min-h-[52px] text-lg leading-snug font-bold text-black dark:text-white">
+
+                          <h2
+                            className={`mb-3 font-bold tracking-[-0.035em] text-[#2C2831] dark:text-white ${
+                              featured
+                                ? "text-[26px] sm:text-[32px]"
+                                : "text-[22px] sm:text-[25px]"
+                            }`}
+                          >
                             {project.title}
                           </h2>
-                          <p className="text-body-color line-clamp-3 text-sm leading-relaxed dark:text-slate-400">
+                          <p className="text-sm leading-6 text-[#746D78] dark:text-[#A39EAA]">
                             {project.description}
                           </p>
+
+                          <div className="mt-auto pt-7">
+                            <span className="border-t border-[#DDD7E1] pt-4 text-[10px] font-bold tracking-[0.12em] text-[#8D8691] uppercase dark:border-white/10">
+                              {locked
+                                ? "Belum bisa dibuka"
+                                : "Klik untuk detail"}
+                            </span>
+                          </div>
                         </div>
                       </button>
                     </article>
@@ -290,17 +366,19 @@ const Demo = () => {
               })}
             </div>
           ) : (
-            <div className="text-body-color rounded-lg border border-gray-200 bg-white p-8 text-center dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300">
-              Demo yang dicari belum tersedia.
+            <div className="border border-[#D5CEDA] bg-white/50 p-10 text-center dark:border-white/10 dark:bg-white/[0.03]">
+              <p className="text-sm font-semibold text-[#716A76] dark:text-[#AAA5B1]">
+                Belum ada sistem yang cocok dengan pencarianmu.
+              </p>
             </div>
           )}
         </div>
-      </section>
+      </main>
 
       {isMounted && selectedProject
         ? createPortal(
             <div
-              className="demo-modal-backdrop fixed inset-0 z-[99999] flex items-center justify-center overflow-y-auto bg-black/75 px-4 py-5 backdrop-blur-sm sm:py-8"
+              className="demo-modal-backdrop fixed inset-0 z-[99999] flex items-center justify-center overflow-y-auto bg-[#090812]/85 px-4 py-5 backdrop-blur-sm sm:py-8"
               role="dialog"
               aria-modal="true"
               aria-labelledby="demo-modal-title"
@@ -309,93 +387,83 @@ const Demo = () => {
                   closeProjectModal();
                 }
               }}
-              onClick={(event) => {
-                if (event.target === event.currentTarget) {
-                  closeProjectModal();
-                }
-              }}
             >
               <div
-                className="demo-modal-panel shadow-three relative max-h-[calc(100dvh-2.5rem)] w-full max-w-[720px] overflow-y-auto rounded-lg border border-gray-200 bg-white dark:border-white/10 dark:bg-[#111827] dark:shadow-[0_30px_80px_rgba(0,0,0,0.45)]"
+                className="demo-modal-panel relative max-h-[calc(100dvh-2.5rem)] w-full max-w-[880px] overflow-y-auto border border-[#D8D1DD] bg-[#F8F6F9] shadow-[18px_18px_0_rgba(139,92,246,0.20)] dark:border-white/10 dark:bg-[#171A2A]"
                 onClick={(event) => event.stopPropagation()}
-                onPointerDown={(event) => event.stopPropagation()}
               >
-                <button
-                  type="button"
-                  onPointerDown={(event) => {
-                    event.stopPropagation();
-                  }}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    closeProjectModal();
-                  }}
-                  aria-label="Tutup detail demo"
-                  className="absolute top-4 right-4 z-[100000] flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-slate-600 shadow-lg transition duration-300 hover:bg-white hover:text-slate-950"
-                >
-                  <CloseIcon />
-                </button>
+                <div className="flex items-center justify-between border-b border-[#D8D1DD] px-5 py-4 dark:border-white/10">
+                  <div className="flex items-center gap-3">
+                    <span className="h-2 w-2 rounded-full bg-[#55B98A]" />
+                    <span className="text-[10px] font-bold tracking-[0.14em] text-[#6E6673] uppercase dark:text-[#B2ACB8]">
+                      Live demo available
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={closeProjectModal}
+                    aria-label="Tutup detail demo"
+                    className="flex h-9 w-9 items-center justify-center text-[#6E6673] transition hover:bg-[#EAE5ED] hover:text-[#292530] dark:text-[#AAA5B1] dark:hover:bg-white/10 dark:hover:text-white"
+                  >
+                    <CloseIcon />
+                  </button>
+                </div>
 
-                <div className="relative h-[min(34dvh,330px)] min-h-[180px] bg-slate-100 sm:min-h-[220px] dark:bg-slate-950">
+                <div className="relative aspect-[16/8.5] min-h-[210px] border-b border-[#D8D1DD] bg-[#10131F] dark:border-white/10">
                   <Image
                     src={selectedProject.image}
                     alt={selectedProject.title}
                     fill
                     priority
-                    sizes="720px"
-                    className="pointer-events-none object-fill"
+                    sizes="880px"
+                    className="pointer-events-none object-cover object-top"
                   />
                 </div>
 
-                <div className="p-6 sm:p-8">
-                  <span className="mb-4 inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-xs font-semibold text-emerald-700 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-300">
-                    <span className="mr-2 h-2 w-2 rounded-full bg-emerald-400" />
-                    Demo Tersedia
-                  </span>
-                  <h2
-                    id="demo-modal-title"
-                    className="mb-3 text-2xl leading-tight font-bold text-black sm:text-3xl dark:text-white"
-                  >
-                    {selectedProject.title}
-                  </h2>
-                  <p className="text-body-color mb-6 text-sm font-medium dark:text-slate-400">
-                    {selectedProject.category} - {selectedProject.client}
-                  </p>
-
-                  <div className="mb-8 border-t border-gray-200 pt-6 dark:border-white/10">
-                    <h3 className="mb-3 text-base font-bold text-black dark:text-white">
-                      About Demo
-                    </h3>
-                    <p className="text-body-color text-base leading-relaxed dark:text-slate-300">
+                <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_.72fr] lg:p-10">
+                  <div>
+                    <p className="mb-4 text-[9px] font-bold tracking-[0.15em] text-[#7955BF] uppercase dark:text-[#BCA5ED]">
+                      {selectedProject.category}
+                    </p>
+                    <h2
+                      id="demo-modal-title"
+                      className="mb-5 text-[30px] leading-[1.05] font-bold tracking-[-0.04em] text-[#292530] sm:text-[38px] dark:text-white"
+                    >
+                      {selectedProject.title}
+                    </h2>
+                    <p className="text-[15px] leading-7 text-[#716A76] dark:text-[#AAA5B1]">
                       {selectedProject.detail}
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    {selectedProject.demoUrl ? (
-                      <a
-                        href={selectedProject.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-primary hover:bg-primary/90 inline-flex h-12 items-center justify-center rounded-lg px-6 text-sm font-semibold text-white transition duration-300"
-                      >
-                        Lihat Demo
-                      </a>
-                    ) : (
+                  <div className="flex flex-col border-t border-[#D8D1DD] pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8 dark:border-white/10">
+                    <span className="mb-2 text-[9px] font-bold tracking-[0.14em] text-[#96909A] uppercase">
+                      Dibuat oleh
+                    </span>
+                    <p className="mb-8 text-sm font-bold text-[#38333D] dark:text-white">
+                      {selectedProject.client}
+                    </p>
+
+                    <div className="mt-auto space-y-3">
+                      {selectedProject.demoUrl && (
+                        <a
+                          href={selectedProject.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-h-[50px] w-full items-center justify-center gap-2 bg-[#7955BF] px-6 text-sm font-bold text-white transition hover:bg-[#6342A8]"
+                        >
+                          Buka live demo
+                          <ArrowIcon />
+                        </a>
+                      )}
                       <button
                         type="button"
-                        disabled
-                        className="inline-flex h-12 cursor-not-allowed items-center justify-center rounded-lg bg-gray-200 px-6 text-sm font-semibold text-gray-500 dark:bg-white/10 dark:text-slate-400"
+                        onClick={closeProjectModal}
+                        className="inline-flex min-h-[48px] w-full items-center justify-center border border-[#D1CAD7] px-6 text-sm font-bold text-[#4B4550] transition hover:border-[#7955BF] hover:text-[#7955BF] dark:border-white/10 dark:text-[#C7C2CB] dark:hover:border-[#8B5CF6] dark:hover:text-white"
                       >
-                        Belum Tersedia
+                        Kembali
                       </button>
-                    )}
-                    <button
-                      type="button"
-                      onClick={closeProjectModal}
-                      className="text-dark inline-flex h-12 items-center justify-center rounded-lg bg-gray-100 px-6 text-sm font-semibold transition duration-300 hover:bg-gray-200 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
-                    >
-                      Tutup
-                    </button>
+                    </div>
                   </div>
                 </div>
               </div>
