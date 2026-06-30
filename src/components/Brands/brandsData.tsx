@@ -11,7 +11,7 @@ const brandsData: SampleSite[] = [
   {
     id: 1,
     title: "Devin",
-    category: "Company",
+    category: "Profil Perusahaan",
     href: "https://bootstrapmade.com/demo/Devin/",
     thumbnail:
       "https://bootstrapmade.com/content/templatefiles/Devin/Devin-bootstrap-website-template-md.webp",
@@ -20,7 +20,7 @@ const brandsData: SampleSite[] = [
   {
     id: 2,
     title: "Landify",
-    category: "Landing Page",
+    category: "Laman Promosi",
     href: "https://bootstrapmade.com/demo/Landify/",
     thumbnail:
       "https://bootstrapmade.com/content/templatefiles/Landify/Landify-bootstrap-website-template-md.webp",
@@ -29,7 +29,7 @@ const brandsData: SampleSite[] = [
   {
     id: 3,
     title: "Invent",
-    category: "Digital",
+    category: "Produk Digital",
     href: "https://bootstrapmade.com/demo/Invent/",
     thumbnail:
       "https://bootstrapmade.com/content/templatefiles/Invent/Invent-bootstrap-website-template-md.webp",
@@ -38,7 +38,7 @@ const brandsData: SampleSite[] = [
   {
     id: 4,
     title: "FlexStart",
-    category: "Digital",
+    category: "Produk Digital",
     href: "https://bootstrapmade.com/demo/FlexStart/",
     thumbnail:
       "https://bootstrapmade.com/content/templatefiles/FlexStart/FlexStart-bootstrap-website-template-md.webp",
@@ -47,7 +47,7 @@ const brandsData: SampleSite[] = [
   {
     id: 5,
     title: "Appland",
-    category: "App",
+    category: "Aplikasi",
     href: "https://bootstrapmade.com/demo/Appland/",
     thumbnail:
       "https://bootstrapmade.com/content/templatefiles/Appland/Appland-bootstrap-website-template-md.webp",
@@ -56,7 +56,7 @@ const brandsData: SampleSite[] = [
   {
     id: 6,
     title: "OnePage",
-    category: "One Page",
+    category: "Satu Halaman",
     href: "https://bootstrapmade.com/demo/OnePage/",
     thumbnail:
       "https://bootstrapmade.com/content/templatefiles/OnePage/OnePage-bootstrap-website-template-md.webp",

@@ -1,4 +1,4 @@
-import { contactEmail, whatsappUrl } from "@/lib/contact";
+import { whatsappUrl } from "@/lib/contact";
 
 const contactPoints = [
   "Kami bantu petakan kebutuhan utama",
@@ -40,12 +40,6 @@ const NewsLatterBox = () => {
           className="bg-primary shadow-submit hover:bg-primary/90 dark:shadow-submit-dark flex w-full items-center justify-center rounded-md px-6 py-4 text-base font-semibold text-white duration-300"
         >
           Tanya Kebutuhan Saya
-        </a>
-        <a
-          href={`mailto:${contactEmail}`}
-          className="border-stroke text-dark hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary flex w-full items-center justify-center rounded-md border px-6 py-4 text-base font-semibold duration-300 dark:border-white/10 dark:text-white"
-        >
-          {contactEmail}
         </a>
       </div>
     </div>

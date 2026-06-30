@@ -1,146 +1,226 @@
-import Image from "next/image";
+import Link from "next/link";
 import ScrollReveal from "../Common/ScrollReveal";
-import SectionTitle from "../Common/SectionTitle";
 
-const checkIcon = (
-  <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
-    <path d="M5.8535 12.6631C5.65824 12.8584 5.34166 12.8584 5.1464 12.6631L0.678505 8.1952C0.483242 7.99994 0.483242 7.68336 0.678505 7.4881L2.32921 5.83739C2.52467 5.64193 2.84166 5.64216 3.03684 5.83791L5.14622 7.95354C5.34147 8.14936 5.65859 8.14952 5.85403 7.95388L13.3797 0.420561C13.575 0.22513 13.8917 0.225051 14.087 0.420383L15.7381 2.07143C15.9333 2.26669 15.9333 2.58327 15.7381 2.77854L5.8535 12.6631Z" />
-  </svg>
-);
+const reasons = [
+  {
+    number: "01",
+    title: "Orang langsung paham",
+    text: "Layanan, cara kerja, dan pembeda bisnismu terbaca tanpa perlu dijelaskan berulang kali.",
+  },
+  {
+    number: "02",
+    title: "Bukti kerja lebih meyakinkan",
+    text: "Portofolio dan testimoni punya tempat yang rapi untuk menjawab keraguan calon klien.",
+  },
+  {
+    number: "03",
+    title: "Selalu siap dibagikan",
+    text: "Satu tautan yang bisa kamu kirim saat follow-up, pitching, atau kenalan dengan calon partner.",
+  },
+];
 
-const starIcon = (
-  <svg width="15" height="15" viewBox="0 0 20 20" className="fill-current">
-    <path d="M9.103 2.316c.367-.744 1.427-.744 1.794 0l1.917 3.884 4.287.623c.821.119 1.149 1.128.555 1.707l-3.102 3.024.732 4.27c.14.817-.718 1.441-1.452 1.055L10 14.864l-3.834 2.015c-.734.386-1.592-.238-1.452-1.055l.732-4.27L2.344 8.53c-.594-.579-.266-1.588.555-1.707L7.186 6.2l1.917-3.884Z" />
-  </svg>
-);
+const WebsitePreview = () => (
+  <div className="relative">
+    <div className="absolute -top-5 -right-5 h-28 w-28 rounded-full bg-[#F2C96D]/25 blur-2xl" />
+    <div className="absolute -bottom-6 -left-4 h-36 w-36 rounded-full bg-[#8B5CF6]/25 blur-2xl" />
 
-const certificateIcon = (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    className="stroke-current"
-  >
-    <path
-      d="M12 3 14.2 5.1 17.2 4.8 18 7.7 20.7 9 19.5 11.8 20.7 14.6 18 15.9 17.2 18.8 14.2 18.5 12 20.6 9.8 18.5 6.8 18.8 6 15.9 3.3 14.6 4.5 11.8 3.3 9 6 7.7 6.8 4.8 9.8 5.1 12 3Z"
-      strokeWidth="2"
-      strokeLinejoin="round"
-    />
-    <path d="m8.8 12 2 2 4.4-4.4" strokeWidth="2" strokeLinecap="round" />
-  </svg>
+    <div className="relative rotate-[-1deg] rounded-[18px] border border-white/10 bg-[#181729] p-2.5 shadow-[0_28px_70px_rgba(35,25,57,0.22)] transition duration-500 hover:rotate-0">
+      <div className="overflow-hidden rounded-[11px] bg-[#FAF8F3]">
+        <div className="flex h-11 items-center justify-between border-b border-[#E4DED4] px-4">
+          <div className="flex gap-1.5" aria-hidden="true">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#FF8275]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#F1C45F]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#70B996]" />
+          </div>
+          <span className="text-[9px] font-semibold tracking-[0.12em] text-[#817B72]">
+            NAMABISNIS.COM
+          </span>
+          <span className="h-1.5 w-8 rounded-full bg-[#D7D1C8]" />
+        </div>
+
+        <div className="grid min-h-[380px] sm:grid-cols-[1.08fr_.92fr]">
+          <div className="flex flex-col justify-between p-6 sm:p-8">
+            <div>
+              <div className="mb-10 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[#282431] text-xs font-black text-white">
+                    B
+                  </span>
+                  <span className="text-[10px] font-bold tracking-[0.08em] text-[#282431] uppercase">
+                    Brand kamu
+                  </span>
+                </div>
+                <div className="flex gap-2" aria-hidden="true">
+                  <span className="h-1.5 w-7 rounded-full bg-[#D4CEC4]" />
+                  <span className="h-1.5 w-5 rounded-full bg-[#D4CEC4]" />
+                </div>
+              </div>
+
+              <p className="mb-3 text-[10px] font-bold tracking-[0.14em] text-[#7955BF] uppercase">
+                Jelas sejak awal
+              </p>
+              <h3 className="max-w-[310px] text-[30px] leading-[1.03] font-bold tracking-[-0.045em] text-[#26222B] sm:text-[36px]">
+                Bikin orang yakin sebelum mulai chat.
+              </h3>
+              <p className="mt-4 max-w-[290px] text-xs leading-5 text-[#777079] sm:text-sm sm:leading-6">
+                Tunjukkan apa yang kamu kerjakan, untuk siapa, dan kenapa orang
+                layak memilihmu.
+              </p>
+            </div>
+
+            <div className="mt-8 flex items-center gap-4">
+              <span className="rounded-md bg-[#7955BF] px-4 py-2.5 text-[10px] font-bold text-white sm:text-xs">
+                Lihat pekerjaan
+              </span>
+              <span className="text-[10px] font-semibold text-[#554F59] underline decoration-[#B7AFBA] underline-offset-4 sm:text-xs">
+                Tentang kami
+              </span>
+            </div>
+          </div>
+
+          <div className="relative hidden overflow-hidden bg-[#DCD1F2] p-5 sm:flex sm:flex-col sm:justify-end">
+            <div className="absolute top-[-18%] right-[-28%] h-64 w-64 rounded-full border-[34px] border-[#8B5CF6]/75" />
+            <div className="absolute top-10 left-5 text-[9px] font-bold tracking-[0.14em] text-[#624794] uppercase">
+              Dipercaya karena jelas
+            </div>
+
+            <div className="relative space-y-2.5">
+              {[
+                "Layanan mudah dipahami",
+                "Bukti kerja terlihat",
+                "Kontak mudah ditemukan",
+              ].map((item, index) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-3 rounded-md border border-white/60 bg-white/85 px-3 py-3 shadow-[0_8px_20px_rgba(73,52,108,0.09)] backdrop-blur-sm"
+                >
+                  <span className="text-[9px] font-bold text-[#7955BF]">
+                    0{index + 1}
+                  </span>
+                  <span className="text-[10px] font-semibold text-[#35303B]">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="relative mt-5 flex items-center gap-3 pl-1">
+      <span
+        className="h-px w-9 shrink-0 bg-[#7955BF] dark:bg-[#BCA5ED]"
+        aria-hidden="true"
+      />
+      <span className="text-[10px] font-bold tracking-[0.12em] text-[#625A68] uppercase dark:text-[#B8B3C0]">
+        Website = profil yang selalu siap
+      </span>
+    </div>
+  </div>
 );
 
 const AboutSectionOne = () => {
-  const List = ({ text }: { text: string }) => (
-    <p className="text-body-color mb-5 flex items-center text-lg font-medium">
-      <span className="bg-primary/10 text-primary mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md">
-        {checkIcon}
-      </span>
-      {text}
-    </p>
-  );
-
   return (
-    <section id="about" className="pt-16 md:pt-20 lg:pt-28">
-      <div className="container">
-        <div className="border-body-color/[.15] border-b pb-16 md:pb-20 lg:pb-28 dark:border-white/[.15]">
-          <div className="-mx-4 flex flex-wrap items-center">
-            <ScrollReveal className="w-full px-4 lg:w-1/2" variant="fade-right">
-              <SectionTitle
-                title={
-                  <>
-                    Kenapa Bisnis Kamu{" "}
-                    <em className="hero-rainbow-text bg-[linear-gradient(90deg,#8B5CF6_0%,#38BDF8_25%,#22C55E_50%,#F59E0B_75%,#EC4899_100%)] [box-decoration-break:clone] bg-clip-text pr-1 text-transparent italic [-webkit-box-decoration-break:clone] dark:bg-[linear-gradient(90deg,#C4B5FD_0%,#7DD3FC_25%,#86EFAC_50%,#FDE68A_75%,#F9A8D4_100%)]">
-                      Harus Punya Website?
-                    </em>
-                  </>
-                }
-                paragraph="Calon klien tidak selalu mundur karena harga. Seringnya, mereka belum cukup yakin untuk percaya pada bisnismu."
-                mb="44px"
-              />
+    <section
+      id="about"
+      className="relative overflow-hidden border-b border-[#DED7E5] bg-[#F0ECF4] py-20 sm:py-24 lg:py-28 dark:border-white/[0.07] dark:bg-[#0D1120]"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 dark:hidden"
+        style={{
+          background:
+            "radial-gradient(circle at 85% 15%, rgba(242, 201, 109, 0.18) 0, transparent 25%), radial-gradient(circle at 12% 78%, rgba(139, 92, 246, 0.14) 0, transparent 28%), linear-gradient(140deg, #F4F0F6 0%, #ECE7F1 55%, #F5F1EA 100%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 hidden dark:block"
+        style={{
+          background:
+            "radial-gradient(circle at 85% 14%, rgba(223, 170, 65, 0.10) 0, transparent 25%), radial-gradient(circle at 12% 78%, rgba(139, 92, 246, 0.18) 0, transparent 30%), linear-gradient(140deg, #0D1120 0%, #151229 55%, #101624 100%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-30 dark:opacity-10"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(121, 85, 191, 0.45) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+          maskImage:
+            "linear-gradient(to right, transparent 0%, black 24%, black 72%, transparent 100%)",
+        }}
+      />
+      <div className="pointer-events-none absolute top-[-160px] right-[-120px] h-[420px] w-[420px] rounded-full border border-[#8B5CF6]/15 dark:border-white/5" />
 
-              <div
-                className="mb-12 max-w-[570px] lg:mb-0"
-                data-wow-delay=".15s"
-              >
-                <div className="mx-[-12px] flex flex-wrap">
-                  <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Calon klien lebih cepat paham value kamu" />
-                    <List text="Bukti kerja mudah dilihat sebelum nego" />
-                    <List text="Layanan jelas tanpa dijelaskan berulang" />
-                  </div>
-
-                  <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Bisnis terlihat serius sejak kesan pertama" />
-                    <List text="Link rapi untuk follow-up calon klien" />
-                    <List text="Keraguan berkurang sebelum mereka chat" />
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal
-              className="hidden w-full px-6 sm:px-8 md:block lg:w-1/2 lg:px-6"
-              delay={140}
-              variant="fade-left"
-            >
-              <div className="relative mx-auto my-8 max-w-[610px] lg:my-0 lg:mr-4">
-                <div className="absolute -top-6 right-3 h-full w-[90%] rounded-md bg-[#efe8ff] dark:bg-[#241f35]" />
-
-                <div className="relative overflow-hidden rounded-md border border-[#e3d9ff] bg-[#f7f3ff] p-3 shadow-[0_22px_55px_rgba(105,72,170,0.16)] dark:border-white/10 dark:bg-[#1f1a2d] dark:shadow-none">
-                  <Image
-                    src="/images/about/about-trusted-seller.png"
-                    alt="ilustrasi trusted seller untuk bisnis"
-                    width={1040}
-                    height={694}
-                    className="h-auto w-full rounded-sm object-cover mix-blend-multiply dark:mix-blend-normal"
-                  />
-
-                  <div className="pointer-events-none absolute inset-3 rounded-sm">
-                    <div className="about-bubble-float absolute top-3 left-3 z-20 rounded-md border border-[#e7dcff] bg-white/95 px-3 py-2.5 shadow-[0_14px_35px_rgba(105,72,170,0.16)] backdrop-blur-sm sm:top-4 sm:left-4 sm:px-4 sm:py-3 dark:border-white/10 dark:bg-[#211c32]/95">
-                      <div className="text-primary mb-1 flex items-center gap-2 text-sm font-bold">
-                        <span className="bg-primary/10 flex h-7 w-7 items-center justify-center rounded-md">
-                          {checkIcon}
-                        </span>
-                        Trusted
-                      </div>
-                      <p className="text-body-color dark:text-body-color-dark text-xs font-medium">
-                        Seller verified
-                      </p>
-                    </div>
-
-                    <div className="about-bubble-float about-bubble-float-delay xs:block absolute top-[42%] right-4 z-20 hidden rounded-md border border-[#fee7b0] bg-white/95 px-4 py-3 shadow-[0_14px_35px_rgba(202,138,4,0.14)] backdrop-blur-sm dark:border-white/10 dark:bg-[#211c32]/95">
-                      <p className="mb-1 text-xs font-semibold text-[#8a5b00] dark:text-[#facc15]">
-                        Rating
-                      </p>
-                      <div className="flex items-center gap-1 text-[#f5b301]">
-                        {[...Array(5)].map((_, index) => (
-                          <span key={index}>{starIcon}</span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="about-bubble-float about-bubble-float-slow absolute bottom-3 left-3 z-20 rounded-md border border-[#d8f3df] bg-white/95 px-3 py-2.5 shadow-[0_14px_35px_rgba(22,163,74,0.14)] backdrop-blur-sm sm:bottom-4 sm:left-6 sm:px-4 sm:py-3 dark:border-white/10 dark:bg-[#211c32]/95">
-                      <div className="flex items-center gap-3">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[#dcfce7] text-[#16a34a] dark:bg-[#14351f] dark:text-[#86efac]">
-                          {certificateIcon}
-                        </span>
-                        <div>
-                          <p className="text-sm font-bold text-black dark:text-white">
-                            Certified
-                          </p>
-                          <p className="text-body-color dark:text-body-color-dark text-xs font-medium">
-                            Trusted seller
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
+      <div className="relative z-10 container px-6 sm:px-8 lg:px-10 xl:px-12">
+        <ScrollReveal
+          className="mb-12 grid gap-7 lg:grid-cols-[1.1fr_.9fr] lg:items-end"
+          variant="fade-up"
+        >
+          <div>
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-[#8B5CF6]" />
+              <span className="text-[11px] font-bold tracking-[0.17em] text-[#7651BE] uppercase sm:text-xs dark:text-[#BCA5ED]">
+                Kenapa harus punya website?
+              </span>
+            </div>
+            <h2 className="max-w-[760px] text-[36px] leading-[1.06] font-bold tracking-[-0.045em] text-[#27232C] sm:text-[46px] lg:text-[54px] dark:text-white">
+              Calon klien biasanya{" "}
+              <span className="font-serif font-normal text-[#7955BF] italic dark:text-[#BCA5ED]">
+                kepo dulu,
+              </span>{" "}
+              baru chat.
+            </h2>
           </div>
+
+          <p className="max-w-[520px] border-l-2 border-[#8B5CF6]/35 pl-5 text-[15px] leading-7 text-[#6D6672] sm:text-base dark:text-[#AAA5B1]">
+            Kalau informasi bisnismu sulit ditemukan, mereka bisa pindah sebelum
+            kamu sempat menjelaskan. Website membantu membangun rasa percaya
+            dari kunjungan pertama.
+          </p>
+        </ScrollReveal>
+
+        <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_.92fr] lg:gap-16">
+          <ScrollReveal variant="fade-right">
+            <WebsitePreview />
+          </ScrollReveal>
+
+          <ScrollReveal delay={120} variant="fade-left">
+            <div className="border-t border-[#D4CDDB] dark:border-white/10">
+              {reasons.map((reason) => (
+                <div
+                  key={reason.number}
+                  className="group grid grid-cols-[44px_1fr] gap-4 border-b border-[#D4CDDB] py-6 sm:grid-cols-[54px_1fr] sm:gap-5 dark:border-white/10"
+                >
+                  <span className="pt-1 text-xs font-bold tracking-[0.12em] text-[#7955BF] dark:text-[#BCA5ED]">
+                    {reason.number}
+                  </span>
+                  <div>
+                    <h3 className="mb-2 text-xl font-bold tracking-[-0.02em] text-[#2D2932] transition group-hover:text-[#7955BF] sm:text-[22px] dark:text-white dark:group-hover:text-[#BCA5ED]">
+                      {reason.title}
+                    </h3>
+                    <p className="text-sm leading-6 text-[#736C78] sm:text-[15px] dark:text-[#AAA5B1]">
+                      {reason.text}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-[320px] text-sm leading-6 font-medium text-[#5F5864] dark:text-[#C5C1CC]">
+                Intinya: bukan sekadar punya website, tapi punya alasan untuk
+                dipercaya.
+              </p>
+              <Link
+                href="#contact"
+                className="inline-flex items-center gap-2 text-sm font-bold text-[#7651BE] transition hover:text-[#4F2D91] dark:text-[#BCA5ED] dark:hover:text-white"
+              >
+                Mulai dari kebutuhanmu
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

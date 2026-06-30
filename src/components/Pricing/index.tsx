@@ -1,365 +1,299 @@
-"use client";
-import { type FormEvent, useState } from "react";
-import SectionTitle from "../Common/SectionTitle";
+import Link from "next/link";
 import ScrollReveal from "../Common/ScrollReveal";
-import OfferList from "./OfferList";
-import PricingBox from "./PricingBox";
 
-type PackageId = "starter" | "growth" | "authority";
-type ProjectTypeId = "website" | "websiteDeck";
-type HostingId = "3-months" | "6-months" | "12-months";
-type DomainCheckStatus =
-  | "idle"
-  | "checking"
-  | "available"
-  | "taken"
-  | "invalid"
-  | "error";
+type PackageIcon = "user" | "briefcase" | "spark";
 
-const packageOptions: {
-  id: PackageId;
+const packages: {
+  id: string;
+  number: string;
   label: string;
-  name: string;
-  subtitle: string;
-  websitePrice: number;
-  websiteDeckPrice: number;
+  title: string;
+  summary: string;
+  idealFor: string;
   features: string[];
+  cta: string;
+  icon: PackageIcon;
+  featured?: boolean;
 }[] = [
   {
     id: "starter",
-    label: "Starter",
-    name: "Starter Profile",
-    subtitle:
-      "Untuk bisnis yang butuh profil online singkat, rapi, dan bisa langsung dibagikan ke calon pelanggan.",
-    websitePrice: 1500000,
-    websiteDeckPrice: 1700000,
+    number: "01",
+    label: "Praktis & efisien",
+    title: "Template Siap Pakai",
+    summary:
+      "Pilih tampilan yang paling dekat dengan bisnismu, lalu isi dengan identitas dan konten milikmu.",
+    idealFor: "Bisnis yang ingin tampil profesional tanpa proses yang panjang",
     features: [
-      "Landing page profil bisnis",
-      "Struktur konten dasar",
-      "Tampilan mobile friendly",
-      "CTA WhatsApp dan kontak",
-      "Template Variatif",
+      "Pilihan template dari katalog",
+      "Pemasangan logo dan identitas bisnis",
+      "Pengisian konten yang sudah tersedia",
+      "Struktur mengikuti template pilihan",
+      "Tampilan responsif",
+      "Kontak dan CTA utama",
     ],
+    cta: "Gunakan template",
+    icon: "user",
   },
   {
     id: "growth",
-    label: "Growth",
-    name: "Growth Profile",
-    subtitle:
-      "Untuk bisnis yang ingin menjelaskan layanan, keunggulan, dan bukti kredibilitas dengan lebih lengkap.",
-    websitePrice: 3500000,
-    websiteDeckPrice: 3700000,
+    number: "02",
+    label: "Lebih fleksibel",
+    title: "Template + Penyesuaian",
+    summary:
+      "Berangkat dari template pilihan, lalu beberapa bagian disesuaikan agar terasa lebih dekat dengan brand.",
+    idealFor: "Bisnis yang ingin lebih khas tanpa memulai semuanya dari nol",
     features: [
-      "Hingga 5 halaman website",
-      "Copywriting profil dan layanan",
-      "Section portofolio atau studi kasus",
-      "SEO dasar dan struktur heading",
-      "Sesi revisi (limited)",
+      "Template sebagai struktur awal",
+      "Penyesuaian warna dan tipografi",
+      "Penyesuaian susunan beberapa bagian",
+      "Tambahan section sesuai kebutuhan",
+      "Review konten dan tampilan",
+      "Sesi revisi terarah",
     ],
+    cta: "Sesuaikan template",
+    icon: "briefcase",
+    featured: true,
   },
   {
     id: "authority",
-    label: "Authority",
-    name: "Authority Profile",
-    subtitle:
-      "Untuk brand yang butuh materi lebih serius untuk tender, pitching, campaign, atau proses sales B2B.",
-    websitePrice: 6000000,
-    websiteDeckPrice: 6500000,
+    number: "03",
+    label: "Dibuat khusus",
+    title: "Full Custom",
+    summary:
+      "Strategi, struktur, dan tampilan dirancang dari awal mengikuti karakter serta kebutuhan bisnismu.",
+    idealFor:
+      "Brand dengan kebutuhan, alur, atau identitas yang lebih spesifik",
     features: [
-      "Hingga 10 halaman website",
-      "Copywriting lengkap per section",
-      "Arah konten campaign awal",
-      "Setup tracking dasar",
-      "Review final bersama",
+      "Sesi discovery dan pemetaan kebutuhan",
+      "Struktur website yang dirancang khusus",
+      "Desain visual dari nol",
+      "Fitur mengikuti kebutuhan bisnis",
+      "Arah copywriting dan konten",
+      "Review menyeluruh sebelum tayang",
     ],
+    cta: "Mulai full custom",
+    icon: "spark",
   },
 ];
 
-const projectTypeOptions: {
-  id: ProjectTypeId;
-  label: string;
-}[] = [
-  { id: "website", label: "Website saja" },
-  { id: "websiteDeck", label: "Website + Deck" },
-];
+const PackageIcon = ({ type }: { type: PackageIcon }) => {
+  if (type === "briefcase") {
+    return (
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M9 7V5.8c0-1 .8-1.8 1.8-1.8h2.4c1 0 1.8.8 1.8 1.8V7M4 11.5h16M9.5 11.5v1.7h5v-1.7M5.4 7h13.2c.8 0 1.4.6 1.4 1.4v9.2c0 .8-.6 1.4-1.4 1.4H5.4c-.8 0-1.4-.6-1.4-1.4V8.4C4 7.6 4.6 7 5.4 7Z"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
 
-const hostingOptions: {
-  id: HostingId;
-  label: string;
-  price: number;
-}[] = [
-  { id: "3-months", label: "3 bulan", price: 0 },
-  { id: "6-months", label: "6 bulan", price: 300000 },
-  { id: "12-months", label: "1 tahun", price: 600000 },
-];
+  if (type === "spark") {
+    return (
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3ZM19 15l.7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
 
-const formatPrice = (price: number) =>
-  new Intl.NumberFormat("id-ID").format(price);
-
-const normalizeDomain = (value: string) =>
-  value
-    .trim()
-    .toLowerCase()
-    .replace(/^https?:\/\//, "")
-    .replace(/^www\./, "")
-    .split("/")[0];
-
-const isValidDomain = (value: string) =>
-  /^(?!-)(?:[a-z0-9-]{1,63}\.)+[a-z]{2,63}$/.test(value);
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="8" r="3" stroke="currentColor" strokeWidth="1.7" />
+      <path
+        d="M5.5 20v-2.5A4.5 4.5 0 0 1 10 13h4a4.5 4.5 0 0 1 4.5 4.5V20"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
 
 const Pricing = () => {
-  const [selectedPackageId, setSelectedPackageId] =
-    useState<PackageId>("starter");
-  const [selectedProjectTypeId, setSelectedProjectTypeId] =
-    useState<ProjectTypeId>("website");
-  const [selectedHostingId, setSelectedHostingId] =
-    useState<HostingId>("3-months");
-  const [domainName, setDomainName] = useState("");
-  const [checkedDomain, setCheckedDomain] = useState("");
-  const [domainCheckStatus, setDomainCheckStatus] =
-    useState<DomainCheckStatus>("idle");
-
-  const selectedPackage =
-    packageOptions.find((item) => item.id === selectedPackageId) ??
-    packageOptions[0];
-  const selectedProjectType =
-    projectTypeOptions.find((item) => item.id === selectedProjectTypeId) ??
-    projectTypeOptions[0];
-  const selectedHosting =
-    hostingOptions.find((item) => item.id === selectedHostingId) ??
-    hostingOptions[0];
-  const basePrice =
-    selectedProjectTypeId === "website"
-      ? selectedPackage.websitePrice
-      : selectedPackage.websiteDeckPrice;
-  const totalPrice = basePrice + selectedHosting.price;
-
-  const handleDomainCheck = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const domain = normalizeDomain(domainName);
-    setCheckedDomain(domain);
-
-    if (!isValidDomain(domain)) {
-      setDomainCheckStatus("invalid");
-      return;
-    }
-
-    setDomainName(domain);
-    setDomainCheckStatus("checking");
-
-    try {
-      const response = await fetch(
-        `https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=NS`,
-      );
-      const result = await response.json();
-
-      setDomainCheckStatus(result.Status === 3 ? "available" : "taken");
-    } catch {
-      setDomainCheckStatus("error");
-    }
-  };
-
-  const domainStatusMessage = {
-    idle: "Masukkan nama domain yang ingin dicek, contoh: namabisnis.com",
-    checking: "Sedang mengecek domain...",
-    available:
-      "Belum terdeteksi DNS. Kemungkinan tersedia, tapi tetap perlu konfirmasi final.",
-    taken:
-      "Domain terdeteksi sudah aktif atau terdaftar. Kita bisa cari alternatif nama.",
-    invalid: "Format domain belum valid. Contoh yang benar: namabisnis.com",
-    error:
-      "Cek otomatis belum berhasil. Nama domain tetap bisa dikonfirmasi saat konsultasi.",
-  }[domainCheckStatus];
-
-  const domainStatusClass = {
-    idle: "border-gray-200 bg-white text-body-color dark:border-white/10 dark:bg-white/5 dark:text-body-color-dark",
-    checking:
-      "border-primary/30 bg-primary/10 text-primary dark:border-primary/30 dark:bg-primary/15",
-    available:
-      "border-[#BBF7D0] bg-[#F0FDF4] text-[#15803D] dark:border-[#22C55E]/40 dark:bg-[#052E16]/40 dark:text-[#BBF7D0]",
-    taken:
-      "border-[#FED7AA] bg-[#FFF7ED] text-[#C2410C] dark:border-[#F97316]/40 dark:bg-[#431407]/40 dark:text-[#FED7AA]",
-    invalid:
-      "border-[#FECACA] bg-[#FEF2F2] text-[#B91C1C] dark:border-[#EF4444]/40 dark:bg-[#450A0A]/40 dark:text-[#FECACA]",
-    error:
-      "border-[#FECACA] bg-[#FEF2F2] text-[#B91C1C] dark:border-[#EF4444]/40 dark:bg-[#450A0A]/40 dark:text-[#FECACA]",
-  }[domainCheckStatus];
-
   return (
     <section
       id="pricing"
-      className="dark:bg-gray-dark relative z-10 border-y border-gray-100 bg-white py-16 md:py-20 lg:py-28 dark:border-white/10"
+      className="relative overflow-hidden border-b border-[#DED8E5] bg-[#F5F1F6] py-20 sm:py-24 lg:py-28 dark:border-white/[0.07] dark:bg-[#101423]"
     >
-      <div className="container">
-        <ScrollReveal variant="fade-up">
-          <SectionTitle
-            title="Estimasi Paket untuk Mulai Lebih Terarah"
-            paragraph="Pilih paket, jenis materi, dan durasi hosting. Harga estimasi akan menyesuaikan pilihan sebelum kami finalkan setelah brief."
-            center
-            width="665px"
-          />
+      <div
+        className="pointer-events-none absolute inset-0 dark:hidden"
+        style={{
+          background:
+            "radial-gradient(circle at 8% 14%, rgba(242, 201, 109, 0.18) 0, transparent 24%), radial-gradient(circle at 90% 72%, rgba(139, 92, 246, 0.16) 0, transparent 28%), linear-gradient(145deg, #F8F4EF 0%, #EFEAF4 52%, #F5F1F7 100%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 hidden dark:block"
+        style={{
+          background:
+            "radial-gradient(circle at 8% 14%, rgba(225, 172, 67, 0.10) 0, transparent 25%), radial-gradient(circle at 90% 72%, rgba(139, 92, 246, 0.20) 0, transparent 30%), linear-gradient(145deg, #101423 0%, #17132A 52%, #111827 100%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-30 dark:opacity-[0.12]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(121, 85, 191, 0.13) 1px, transparent 1px), linear-gradient(90deg, rgba(121, 85, 191, 0.13) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+          maskImage:
+            "linear-gradient(to bottom, black 0%, rgba(0,0,0,.45) 58%, transparent 100%)",
+        }}
+      />
+
+      <div className="relative z-10 container px-6 sm:px-8 lg:px-10 xl:px-12">
+        <ScrollReveal
+          className="mb-12 grid gap-7 lg:grid-cols-[1.05fr_.95fr] lg:items-end"
+          variant="fade-up"
+        >
+          <div>
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-[#8B5CF6]" />
+              <span className="text-[11px] font-bold tracking-[0.17em] text-[#7651BE] uppercase sm:text-xs dark:text-[#BCA5ED]">
+                Model pengerjaan
+              </span>
+            </div>
+            <h2 className="max-w-[760px] text-[36px] leading-[1.06] font-bold tracking-[-0.045em] text-[#28242D] sm:text-[46px] lg:text-[54px] dark:text-white">
+              Pilih cara kerja yang paling{" "}
+              <span className="font-serif font-normal text-[#7955BF] italic dark:text-[#BCA5ED]">
+                pas
+              </span>{" "}
+              buat bisnismu.
+            </h2>
+          </div>
+
+          <p className="max-w-[520px] border-l-2 border-[#8B5CF6]/35 pl-5 text-[15px] leading-7 text-[#6D6672] sm:text-base dark:text-[#AAA5B1]">
+            Bukan soal berapa banyak halaman. Struktur, konten, dan cakupan
+            pengerjaan akan mengikuti kebutuhan serta prioritas bisnismu.
+          </p>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
-          <ScrollReveal
-            className="lg:col-span-7"
-            delay={100}
-            variant="fade-right"
-          >
-            <div className="rounded-lg border border-gray-200 bg-gray-50 p-5 shadow-sm sm:p-7 lg:p-8 dark:border-white/10 dark:bg-white/[0.04]">
-              <div className="mb-7">
-                <p className="mb-4 text-[13px] leading-none font-bold tracking-[0.04em] text-black uppercase dark:text-white">
-                  1. Pilih paket
-                </p>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  {packageOptions.map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setSelectedPackageId(item.id)}
-                      className={`min-h-[60px] rounded-lg border px-5 py-4 text-center text-base leading-tight font-bold shadow-sm transition duration-300 sm:text-left ${
-                        selectedPackageId === item.id
-                          ? "border-primary bg-primary text-white shadow-[0_12px_28px_rgba(139,92,246,0.20)]"
-                          : "text-dark hover:border-primary/50 hover:text-primary dark:bg-gray-dark border-gray-200 bg-white dark:border-white/10 dark:text-white"
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mb-7">
-                <p className="mb-4 text-[13px] leading-none font-bold tracking-[0.04em] text-black uppercase dark:text-white">
-                  2. Pilih kebutuhan
-                </p>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {projectTypeOptions.map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setSelectedProjectTypeId(item.id)}
-                      className={`min-h-[60px] rounded-lg border px-5 py-4 text-center text-base leading-tight font-bold shadow-sm transition duration-300 sm:text-left ${
-                        selectedProjectTypeId === item.id
-                          ? "border-primary bg-primary text-white shadow-[0_12px_28px_rgba(139,92,246,0.20)]"
-                          : "text-dark hover:border-primary/50 hover:text-primary dark:bg-gray-dark border-gray-200 bg-white dark:border-white/10 dark:text-white"
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <p className="mb-4 text-[13px] leading-none font-bold tracking-[0.04em] text-black uppercase dark:text-white">
-                  3. Pilih durasi hosting
-                </p>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  {hostingOptions.map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setSelectedHostingId(item.id)}
-                      className={`min-h-[74px] rounded-lg border px-5 py-4 text-center shadow-sm transition duration-300 sm:text-left ${
-                        selectedHostingId === item.id
-                          ? "border-primary bg-primary text-white shadow-[0_12px_28px_rgba(139,92,246,0.20)]"
-                          : "text-dark hover:border-primary/50 hover:text-primary dark:bg-gray-dark border-gray-200 bg-white dark:border-white/10 dark:text-white"
-                      }`}
-                    >
-                      <span className="block text-base leading-tight font-bold">
-                        {item.label}
-                      </span>
-                      <span className="mt-2 block text-xs leading-none font-semibold opacity-80">
-                        {item.price === 0
-                          ? "Termasuk"
-                          : `+Rp${formatPrice(item.price)}`}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-                <p className="text-body-color dark:text-body-color-dark mt-4 text-sm leading-relaxed">
-                  Belum termasuk domain. Harga domain akan menyesuaikan dengan
-                  kebutuhan customer.
-                </p>
-                <form
-                  onSubmit={handleDomainCheck}
-                  className="dark:bg-gray-dark mt-5 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-white/10"
-                >
-                  <label
-                    htmlFor="domain-check"
-                    className="mb-3 block text-sm font-bold text-black dark:text-white"
-                  >
-                    Cek domain yang diinginkan
-                  </label>
-                  <div className="flex flex-col gap-3 sm:flex-row">
-                    <input
-                      id="domain-check"
-                      type="text"
-                      value={domainName}
-                      onChange={(event) => {
-                        setDomainName(event.target.value);
-                        setDomainCheckStatus("idle");
-                      }}
-                      placeholder="contoh: namabisnis.com"
-                      className="border-stroke-stroke text-dark focus:border-primary min-h-[48px] flex-1 rounded-md border bg-white px-4 text-sm font-medium outline-hidden duration-300 placeholder:text-gray-400 dark:border-white/10 dark:bg-white/5 dark:text-white"
-                    />
-                    <button
-                      type="submit"
-                      disabled={domainCheckStatus === "checking"}
-                      className="bg-primary hover:bg-primary/90 min-h-[48px] rounded-md px-6 text-sm font-bold whitespace-nowrap text-white duration-300 disabled:cursor-not-allowed disabled:opacity-70"
-                    >
-                      {domainCheckStatus === "checking"
-                        ? "Mengecek..."
-                        : "Cek Domain"}
-                    </button>
-                  </div>
-                  {domainCheckStatus !== "idle" && (
-                    <p
-                      className={`mt-3 rounded-md border px-4 py-3 text-sm leading-relaxed font-medium ${domainStatusClass}`}
-                    >
-                      {checkedDomain && domainCheckStatus !== "invalid"
-                        ? `${checkedDomain}: ${domainStatusMessage}`
-                        : domainStatusMessage}
-                    </p>
-                  )}
-                </form>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal
-            className="lg:col-span-5"
-            delay={180}
-            variant="fade-left"
-          >
-            <PricingBox
-              packageName={selectedPackage.name}
-              price={formatPrice(totalPrice)}
-              duration="paket"
-              subtitle={selectedPackage.subtitle}
+        <div className="grid gap-5 lg:grid-cols-3">
+          {packages.map((item, index) => (
+            <ScrollReveal
+              key={item.id}
+              className="h-full"
+              delay={index * 90}
+              variant="fade-up"
             >
-              <OfferList text={selectedProjectType.label} status="active" />
-              {selectedPackage.features.map((item) => (
-                <OfferList key={item} text={item} status="active" />
-              ))}
-              <OfferList
-                text="Deck penawaran PDF"
-                status={
-                  selectedProjectTypeId === "websiteDeck"
-                    ? "active"
-                    : "inactive"
-                }
-              />
-              <OfferList
-                text={`Hosting ${selectedHosting.label}`}
-                status="active"
-              />
-              <OfferList text="Free maintenance" status="active" />
-            </PricingBox>
-          </ScrollReveal>
+              <article
+                className={`relative flex h-full flex-col overflow-hidden rounded-[12px] border bg-[#FCFBFD]/95 p-7 backdrop-blur-sm transition duration-300 sm:p-8 dark:bg-[#171A2A]/95 ${
+                  item.featured
+                    ? "border-[#8B5CF6] shadow-[0_24px_65px_rgba(93,63,150,0.18)] dark:border-[#8B5CF6]"
+                    : "border-[#DAD4E0] hover:border-[#8B5CF6]/50 hover:shadow-[0_20px_55px_rgba(55,39,78,0.10)] dark:border-white/10 dark:hover:border-[#8B5CF6]/45"
+                }`}
+              >
+                {item.featured && (
+                  <div className="absolute top-0 right-0 bg-[#8B5CF6] px-4 py-2 text-[9px] font-bold tracking-[0.13em] text-white uppercase">
+                    Paling fleksibel
+                  </div>
+                )}
+
+                <div className="mb-7 flex items-start justify-between gap-5">
+                  <div>
+                    <span className="mb-2 block text-[10px] font-bold tracking-[0.13em] text-[#918A96]">
+                      {item.number}
+                    </span>
+                    <h3 className="text-xl font-bold tracking-[-0.025em] text-[#292530] sm:text-[22px] dark:text-white">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[10px] bg-[#EEE9FA] text-[#7955BF] dark:bg-[#8B5CF6]/15 dark:text-[#BCA5ED]">
+                    <PackageIcon type={item.icon} />
+                  </span>
+                </div>
+
+                <div className="mb-7">
+                  <p className="mb-2 text-[28px] leading-tight font-bold tracking-[-0.035em] text-[#2D2932] dark:text-white">
+                    {item.label}
+                  </p>
+                  <p className="min-h-[72px] text-sm leading-6 text-[#746D78] dark:text-[#AAA5B1]">
+                    {item.summary}
+                  </p>
+                </div>
+
+                <div className="mb-7 border-y border-[#E2DCE6] py-4 dark:border-white/10">
+                  <span className="mb-1.5 block text-[9px] font-bold tracking-[0.13em] text-[#918A96] uppercase">
+                    Cocok untuk
+                  </span>
+                  <p className="text-xs leading-5 font-semibold text-[#514A55] dark:text-[#D0CBD5]">
+                    {item.idealFor}
+                  </p>
+                </div>
+
+                <ul className="mb-8 space-y-4">
+                  {item.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex items-start gap-3 text-sm leading-5 text-[#4E4852] dark:text-[#CBC6D0]"
+                    >
+                      <span
+                        className="mt-0.5 text-[#16A66A]"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href="#contact"
+                  className={`mt-auto inline-flex min-h-[48px] items-center justify-center rounded-md px-5 text-sm font-bold transition ${
+                    item.featured
+                      ? "bg-[#7955BF] text-white hover:bg-[#6342A8]"
+                      : "bg-[#242131] text-white hover:bg-[#7955BF] dark:bg-white/10 dark:hover:bg-[#7955BF]"
+                  }`}
+                >
+                  {item.cta}
+                </Link>
+              </article>
+            </ScrollReveal>
+          ))}
         </div>
+
+        <ScrollReveal
+          className="mt-8 flex flex-col gap-3 border-t border-[#DAD4E0] pt-6 sm:flex-row sm:items-center sm:justify-between dark:border-white/10"
+          delay={120}
+        >
+          <p className="text-sm leading-6 text-[#746D78] dark:text-[#AAA5B1]">
+            Belum yakin pilih yang mana? Mulai saja dari cerita tentang
+            bisnismu.
+          </p>
+          <Link
+            href="#contact"
+            className="inline-flex items-center gap-2 text-sm font-bold text-[#7651BE] transition hover:text-[#4F2D91] dark:text-[#BCA5ED] dark:hover:text-white"
+          >
+            Diskusikan dulu
+            <span aria-hidden="true">→</span>
+          </Link>
+        </ScrollReveal>
       </div>
     </section>
   );

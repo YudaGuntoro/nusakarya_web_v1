@@ -4,7 +4,7 @@ services:
     container_name: nusakarya-web
     restart: unless-stopped
     ports:
-      - "${APP_PORT:-3000}:3000"
+      - "${APP_PORT:-3001}:3000"
     environment:
       NODE_ENV: production
       PORT: 3000
